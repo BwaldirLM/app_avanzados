@@ -8,12 +8,49 @@ class FirstPage extends StatelessWidget {
     return Scaffold(
         body: Column(children: [
       Expanded(
-        child: Container(
-          color: Colors.blue,
+        child: Stack(
+          children: [
+            Positioned(
+
+                child: Container(
+              color: Colors.white,
+              child: Center(
+                  child: Container(
+                    height: 350,
+                    width: 350,
+                    child: Image(
+                      image: AssetImage('assets/logob.gif'),
+                      fit: BoxFit.cover,
+                    ),
+                  )
+              ),
+            )
+            ),
+            Positioned(
+                bottom: 20,
+                right: 15,
+                child: Center(
+                    child: Container(
+                      height: 200,
+                      width: 200,
+                      child: Image(
+                        image: AssetImage('assets/policia.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                )
+            )
+
+          ],
         ),
       ),
-      SizedBox(
+      Container(
           height: 100,
+          decoration: const BoxDecoration(
+            color: Colors.blueAccent,
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))
+
+          ),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             _Button(
