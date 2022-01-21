@@ -20,20 +20,20 @@ class FirstPage extends StatelessWidget {
               'INICIAR SESION',
               fondo: Colors.white,
               textoColor: Colors.black,
-              onTap: () => print('Iniciar sesion'),
+              onTap: () => Navigator.pushNamed(context, '/login'),
             ),
             _Button(
               'REGISTRARSE',
               fondo: Colors.black,
               textoColor: Colors.white,
-              onTap: () => print('Registrarse'),
+              onTap: () => Navigator.pushNamed(context, '/signup'),
             ),
           ])),
     ]));
   }
 }
 
-// ignore: must_be_immutable
+
 class _Button extends StatelessWidget {
   _Button(this.texto,
       {Key? key,
