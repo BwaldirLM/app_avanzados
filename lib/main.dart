@@ -1,4 +1,5 @@
 import 'package:app_voronoi/src/pages/home_page.dart';
+import 'package:app_voronoi/src/pages/lista_comisarias_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => const FirstPage(),
         '/login': (context) => const LoginPage(),
         '/signup': (context) => const SignupPage(),
-        '/home': (_) => const HomePage()
+        '/home': (_) => const HomePage(),
+        '/lista': (_) => const ListaComisariaPage()
       },
     );
   }

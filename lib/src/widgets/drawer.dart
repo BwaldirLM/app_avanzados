@@ -18,6 +18,7 @@ class MyDrawer extends StatelessWidget {
             ),
             _DrawerItem(
               'Comisarias',
+              onTap: () => Navigator.pushNamed(context, '/lista'),
             ),
             _DrawerItem(
               'Herramientas',
@@ -41,7 +42,7 @@ class _DrawerItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
