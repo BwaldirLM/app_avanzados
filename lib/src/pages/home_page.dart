@@ -1,3 +1,4 @@
+import 'package:app_voronoi/src/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,7 +10,9 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
       ),
-      drawer: Drawer(),
+      drawer: const Drawer(
+        child: MyDrawer(),
+      ),
       body: Container(
         width: double.infinity,
         color: Colors.blue,
@@ -18,13 +21,16 @@ class HomePage extends StatelessWidget {
           children: const [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text('TODO VA BIEN?', style: TextStyle(fontSize: 30, color: Colors.white),),
+              child: Text(
+                'TODO VA BIEN?',
+                style: TextStyle(fontSize: 30, color: Colors.white),
+              ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text('Tres comisarias encontradas',style: TextStyle(fontSize: 18,color: Colors.white)),
+              child: Text('Tres comisarias encontradas',
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
             ),
-
           ],
         ),
       ),
@@ -32,7 +38,8 @@ class HomePage extends StatelessWidget {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Mapa'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
-          BottomNavigationBarItem(icon: Icon(Icons.account_circle_outlined), label: 'Perfil'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle_outlined), label: 'Perfil'),
         ],
       ),
     );
