@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:proy_avanzados/src/providers/usuario_provider.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  late final GlobalKey<FormState> formKey;
+  late final GlobalKey<ScaffoldState> scafoldKey;
+  late String email;
+  late String password;
+  late final usuarioProvider;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    formKey = GlobalKey<FormState>();
+    usuarioProvider = UsuarioProvider();
+    email = '';
+    password = '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +36,7 @@ class SignupPage extends StatelessWidget {
             BackButton(
               onPressed: () => Navigator.pop(context),
             ),
-            const Spacer()
+            Spacer()
           ],
         ),
         const SizedBox(height: 20),
@@ -26,14 +47,15 @@ class SignupPage extends StatelessWidget {
         const SizedBox(height: 20),
         Center(
           child: Form(
+              key: formKey,
               child: Column(
-            children: [
-              _inputCorreo(),
-              _inputContrasena(),
-              const SizedBox(height: 20),
-              _submitButton(),
-            ],
-          )),
+                children: [
+                  _inputCorreo(),
+                  _inputContrasena(),
+                  const SizedBox(height: 20),
+                  _submitButton(context),
+                ],
+              )),
         )
       ],
     ));
@@ -42,7 +64,7 @@ class SignupPage extends StatelessWidget {
   Container _inputCorreo() {
     return Container(
       width: 350,
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         border: Border.all(
@@ -51,8 +73,22 @@ class SignupPage extends StatelessWidget {
         ),
       ),
       child: TextFormField(
-        decoration:
-            const InputDecoration(labelText: 'Correo', border: InputBorder.none),
+        keyboardType: TextInputType.emailAddress,
+        decoration: const InputDecoration(
+            labelText: 'Correo Electronico',
+            hintText: 'correo@mail.com',
+            border: InputBorder.none),
+        onSaved: (newValue) => email = newValue!,
+        validator: (value) {
+          String pattern =
+              r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+          RegExp regExp = RegExp(pattern);
+          if (regExp.hasMatch(value!)) {
+            return null;
+          } else {
+            return 'Email incorrecto';
+          }
+        },
       ),
     );
   }
@@ -60,7 +96,7 @@ class SignupPage extends StatelessWidget {
   Container _inputContrasena() {
     return Container(
       width: 350,
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.black,
@@ -68,16 +104,23 @@ class SignupPage extends StatelessWidget {
         ),
       ),
       child: TextFormField(
-        decoration:
-            InputDecoration(labelText: 'Contraseña', border: InputBorder.none),
+        decoration: const InputDecoration(
+            labelText: 'Contraseña', border: InputBorder.none),
         obscureText: true,
+        onSaved: (newValue) => password = newValue!,
+        validator: (value) {
+          if (value!.length < 6) {
+            return 'Debe ser mas de seis caracteres';
+          } else
+            return null;
+        },
       ),
     );
   }
 
-  Widget _submitButton() {
+  Widget _submitButton(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => _submit(usuarioProvider),
       child: Container(
         width: 350,
         height: 60,
@@ -86,7 +129,7 @@ class SignupPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.black),
         ),
-        child: Center(
+        child: const Center(
           child: Text('REGISTRARSE',
               style: TextStyle(
                   fontSize: 14,
@@ -95,5 +138,24 @@ class SignupPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _submit(UsuarioProvider userProvider) async {
+    if (!formKey.currentState!.validate())
+      return;
+    else {
+      formKey.currentState!.save();
+
+      final resp = await userProvider.register(email, password);
+      if (resp['status']) {
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/home', (route) => false);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(resp['error']),
+          duration: const Duration(seconds: 4),
+        ));
+      }
+    }
   }
 }

@@ -10,9 +10,11 @@ class MyDrawer extends StatelessWidget {
           color: const Color(0xFF1E88E5),
           child: Column(children: [
             Container(
-              height: 200,
-              color: Colors.amber,
-            ),
+                height: 200,
+                child: const Image(
+                  image: AssetImage('assets/policia2.png'),
+                  fit: BoxFit.cover,
+                )),
             _DrawerItem(
               'Mi ubicacion',
             ),

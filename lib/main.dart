@@ -1,12 +1,11 @@
-import 'package:app_voronoi/src/pages/home_page.dart';
-import 'package:app_voronoi/src/pages/lista_comisarias_page.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:proy_avanzados/src/pages/comisaria_page.dart';
 
-import 'package:app_voronoi/src/pages/first_page.dart';
-import 'package:app_voronoi/src/pages/login_page.dart';
-import 'package:app_voronoi/src/pages/signup_page.dart';
-import 'package:app_voronoi/src/pages/comisaria_page.dart';
+import 'package:proy_avanzados/src/pages/first_page.dart';
+import 'package:proy_avanzados/src/pages/home_page.dart';
+import 'package:proy_avanzados/src/pages/lista_comisarias_page.dart';
+import 'package:proy_avanzados/src/pages/login_page.dart';
+import 'package:proy_avanzados/src/pages/signup_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,19 +19,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'App Voronoi',
       debugShowCheckedModeBanner: false,
-      initialRoute: '/comisaria',
+      initialRoute: '/',
       routes: {
         '/': (context) => const FirstPage(),
         '/login': (context) => const LoginPage(),
         '/signup': (context) => const SignupPage(),
-<<<<<<< HEAD
-        '/home' : (_) => const HomePage(),
-        '/comisaria' : (_) =>  comisariaPage()
-
-=======
-        '/home': (_) => const HomePage(),
+        '/home': (_) => HomePage(),
+        '/comisaria': (_) => ComisariaPage(),
         '/lista': (_) => const ListaComisariaPage()
->>>>>>> upstream/master
       },
     );
   }

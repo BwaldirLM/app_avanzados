@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proy_avanzados/src/data/comisaria_data.dart';
 
 class ListaComisariaPage extends StatelessWidget {
   const ListaComisariaPage({Key? key}) : super(key: key);
@@ -33,21 +34,23 @@ class ListaComisariaPage extends StatelessWidget {
           ),
           Expanded(
               child: ListView.builder(
-            itemCount: 15,
+            itemCount: comisarias.length,
             itemBuilder: (context, index) {
               return Column(
-                children: const [
+                children: [
                   ListTile(
                     leading: Icon(Icons.cable_rounded),
                     title: Text(
-                      'Comisaria de tahuantinsuyo',
-                      style: TextStyle(
+                      '${comisarias[index]['nombre']}',
+                      style: const TextStyle(
                           color: Colors.indigoAccent,
                           fontSize: 18,
                           fontWeight: FontWeight.w600),
                     ),
+                    onTap: () => Navigator.pushNamed(context, '/comisaria',
+                        arguments: comisarias[index]),
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 4,
                   )
                 ],

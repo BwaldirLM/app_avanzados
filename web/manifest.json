@@ -1,6 +1,6 @@
 {
-    "name": "app_voronoi",
-    "short_name": "app_voronoi",
+    "name": "proy_avanzados",
+    "short_name": "proy_avanzados",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
